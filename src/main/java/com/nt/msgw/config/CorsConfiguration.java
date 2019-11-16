@@ -20,6 +20,8 @@ import org.springframework.web.server.WebFilterChain;
 import reactor.core.publisher.Mono;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 public class CorsConfiguration {
@@ -29,6 +31,7 @@ public class CorsConfiguration {
     private static final String ALLOWED_ORIGIN = "*";
     private static final String ALLOWED_EXPOSE = "*";
     private static final String MAX_AGE = "3600";
+    List<String> webSocketUrl = Arrays.asList("notification/socket");
 
     @Bean
     public WebFilter corsFilter() {
@@ -37,7 +40,9 @@ public class CorsConfiguration {
             if (CorsUtils.isCorsRequest(request)) {
                 ServerHttpResponse response = ctx.getResponse();
                 HttpHeaders headers = response.getHeaders();
-                headers.set("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+                if(webSocketUrl.stream().anyMatch(x-> request.getURI().toString().indexOf(x)<0)) {
+                    headers.set("Access-Control-Allow-Origin", ALLOWED_ORIGIN);
+                }
                 headers.add("Access-Control-Allow-Methods", ALLOWED_METHODS);
                 headers.add("Access-Control-Max-Age", MAX_AGE);
                 headers.add("Access-Control-Allow-Headers", ALLOWED_HEADERS);
