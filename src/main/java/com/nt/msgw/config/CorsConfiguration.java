@@ -28,7 +28,7 @@ public class CorsConfiguration {
 
     private static final String ALLOWED_HEADERS = "x-requested-with, authorization, Content-Type, Authorization, credential, X-XSRF-TOKEN,token,username,client";
     private static final String ALLOWED_METHODS = "*";
-    private static final String ALLOWED_ORIGIN = "*";
+    private static final String ALLOWED_ORIGIN = "http://localhost:4200";
     private static final String ALLOWED_EXPOSE = "*";
     private static final String MAX_AGE = "3600";
     List<String> webSocketUrl = Arrays.asList("notification/socket");

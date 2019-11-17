@@ -17,4 +17,4 @@ spring:
         - id: nt-ms2
           uri: http://localhost:5051/
           predicates:
-            - Path=/auth/**, /api/**, /notifier/**, /notification/**
+            - Path=/auth/**, /api/**, /notifier/**, /notification/**, /upload/files/**
