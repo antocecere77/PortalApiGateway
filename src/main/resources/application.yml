@@ -1,9 +1,18 @@
 server:
   port: 9090
+  #ssl:
+    #    enabled: true
+    #  key-alias: antonio
+    #  key-store: classpath:keystore/antonio.p12
+    #  key-store-password: 12345678
+    #  key-store-type: PKCS12
 ---
 spring:
   cloud:
     gateway:
+      httpclient:
+        ssl:
+          useInsecureTrustManager: true
       default-filters:
       - name: SCGWGlobalFilter
       routes:
@@ -15,6 +24,7 @@ spring:
           - name: SCGWPreFilter
           - name: SCGWPostFilter
         - id: nt-ms2
+          #uri: https://LAPTOP-48HU69GE:5051/
           uri: http://localhost:5051/
           predicates:
             - Path=/auth/**, /api/**, /notifier/**, /notification/**, /upload/files/**
